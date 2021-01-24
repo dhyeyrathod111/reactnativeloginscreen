@@ -1,10 +1,20 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import { AuthContext } from '../../component/context';
+import { useTheme, TextInput, Button } from 'react-native-paper';
 
-const ProfileStackScreen = props =>  {
+
+const ProfileStackScreen = props => {
+
+    const { signOut } = React.useContext(AuthContext);
+
     return (
         <View style={styles.container}>
-            <Text>Welcome to profile</Text>
+            <TouchableHighlight>
+                <Button mode="contained" onPress={() => { signOut() }}>
+                    sign Out
+                </Button>
+            </TouchableHighlight>
         </View>
     )
 }

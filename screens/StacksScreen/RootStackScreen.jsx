@@ -11,9 +11,6 @@ import Header from '../Header';
 
 const RootStack = createStackNavigator();
 
-
-
-
 const RootStackScreen = () => {
     return (
         <NavigationContainer>

@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import { useTheme, TextInput, Button } from 'react-native-paper';
+import { AuthContext } from '../component/context';
 
 const LoginScreen = ({ navigation }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const { signIn } = React.useContext(AuthContext);
 
-    const submitHendler = () => {
-        
+    const handelSubmit = () => {
+        signIn();
     }
 
     return (
@@ -37,7 +39,7 @@ const LoginScreen = ({ navigation }) => {
             <View style={styles.button}>
                 <View style={styles.action, { marginEnd: 10 }}>
                     <TouchableHighlight>
-                        <Button mode="contained" onPress={submitHendler}>
+                        <Button mode="contained" onPress={handelSubmit}>
                             Login
                         </Button>
                     </TouchableHighlight>
@@ -69,11 +71,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row',
     },
-
-
-
-
-
     footer: {
         flex: 3,
         backgroundColor: '#fff',
