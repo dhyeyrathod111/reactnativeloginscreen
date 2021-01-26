@@ -6,12 +6,11 @@ import { useTheme, TextInput, Button } from 'react-native-paper';
 
 const ProfileStackScreen = props => {
 
-    const { signOut } = React.useContext(AuthContext);
 
     return (
         <View style={styles.container}>
             <TouchableHighlight>
-                <Button mode="contained" onPress={() => { signOut() }}>
+                <Button mode="contained" onPress={() => { console.log("hello") }}>
                     sign Out
                 </Button>
             </TouchableHighlight>

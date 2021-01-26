@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
-import { useTheme, TextInput, Button } from 'react-native-paper';
-import { AuthContext } from '../component/context';
+import { useTheme, TextInput, Button, Dialog, Portal, Paragraph } from 'react-native-paper';
+import { connect } from 'react-redux';
+import { userLogin } from '../actions/userLogin'
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = (props, { navigation }) => {
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('test@gmail.com');
+    const [password, setPassword] = useState('1234');
 
-    const { signIn } = React.useContext(AuthContext);
 
     const handelSubmit = () => {
-        signIn();
+        props.dispatch(userLogin({ email, password }))
     }
 
     return (
@@ -19,6 +19,7 @@ const LoginScreen = ({ navigation }) => {
             <View style={styles.header}>
                 <Text style={styles.text_header}>Welcome To Qbit!</Text>
             </View>
+
             <View style={styles.inputField}>
                 <TextInput
                     label="Email"
@@ -49,7 +50,13 @@ const LoginScreen = ({ navigation }) => {
     )
 }
 
-export default LoginScreen;
+const mapStateToProps = props => {
+    return {
+        login: props.loginReducer,
+    };
+}
+
+export default connect(mapStateToProps)(LoginScreen);
 
 
 
