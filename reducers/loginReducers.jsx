@@ -1,8 +1,9 @@
 
 const initialLoginStateStates = {
-    isLoading: true,
+    isLoading: false,
     userId: null,
-    userToken: null
+    userToken: null,
+    loginError: null,
 }
 
 const loginReducer = (prevState = initialLoginStateStates, action) => {
@@ -25,12 +26,24 @@ const loginReducer = (prevState = initialLoginStateStates, action) => {
                 ...prevState,
                 userToken: null,
                 userId: null,
-                isLoading: false
+                isLoading: false,
+                loginError: null
             }
-
         case 'LOGIN_TIMEOUT':
             return {
                 ...prevState,
+                isLoading: false,
+            }
+
+        case 'LOGINPROCESS':
+            return {
+                ...prevState,
+                isLoading: true,
+            }
+        case 'LOGINERROR':
+            return {
+                ...prevState,
+                loginError: action.payload.message,
                 isLoading: false,
             }
         default:

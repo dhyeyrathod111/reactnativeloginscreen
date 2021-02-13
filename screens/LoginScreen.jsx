@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
-import { useTheme, TextInput, Button, Dialog, Portal, Paragraph } from 'react-native-paper';
+import { StyleSheet, Text, View, TouchableHighlight, Alert } from 'react-native';
+import { TextInput, Button, Dialog, Portal } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { userLogin } from '../actions/userLogin'
+import { userLogin } from '../actions/userLogin';
 
 const LoginScreen = (props, { navigation }) => {
 
     const [email, setEmail] = useState('test@gmail.com');
     const [password, setPassword] = useState('1234');
 
-
     const handelSubmit = () => {
+        props.dispatch({ type: 'LOGINPROCESS' })
         props.dispatch(userLogin({ email, password }))
+    }
+    if (props.login.loginError != null) {
+        Alert.alert("Error", props.login.loginError, [
+            { text: "OK", onPress: () => props.dispatch({ type: 'LOGOUT' }) }
+        ], { cancelable: false }
+        );
     }
 
     return (
@@ -57,8 +63,6 @@ const mapStateToProps = props => {
 }
 
 export default connect(mapStateToProps)(LoginScreen);
-
-
 
 const styles = StyleSheet.create({
     container: {

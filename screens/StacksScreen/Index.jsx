@@ -6,15 +6,6 @@ import { connect } from 'react-redux';
 import { demouserLogin } from '../../actions/userLogin';
 
 const Index = props => {
-
-    useEffect(() => {
-        setTimeout(() => {
-            if (props.login.isLoading !== false) props.dispatch(demouserLogin());
-        }, 1000);
-    })
-
-    
-
     if (props.login.isLoading == true) {
         return (
             <Loader />
