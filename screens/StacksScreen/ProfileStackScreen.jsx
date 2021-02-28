@@ -1,15 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
-import { AuthContext } from '../../component/context';
+import { StyleSheet, View, TouchableHighlight } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage'
 import { connect } from 'react-redux';
-import { useTheme, TextInput, Button } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 
 const ProfileStackScreen = props => {
-
+    const logoutProcess = async () => {
+        await AsyncStorage.removeItem('logintoken');
+        props.dispatch({ type: 'LOGOUT' })
+    }
     return (
         <View style={styles.container}>
             <TouchableHighlight>
-                <Button mode="contained" onPress={() => props.dispatch({ type: 'LOGOUT' })}>
+                <Button mode="contained" onPress={logoutProcess}>
                     sign Out
                 </Button>
             </TouchableHighlight>

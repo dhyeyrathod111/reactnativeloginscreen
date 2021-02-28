@@ -4,6 +4,7 @@ const initialLoginStateStates = {
     userId: null,
     userToken: null,
     loginError: null,
+    user:null,
 }
 
 const loginReducer = (prevState = initialLoginStateStates, action) => {
@@ -19,7 +20,8 @@ const loginReducer = (prevState = initialLoginStateStates, action) => {
                 ...prevState,
                 userToken: action.payload.token,
                 userId: action.payload.id,
-                isLoading: false
+                isLoading: false,
+                user: action.payload.userdetails,
             }
         case 'LOGOUT':
             return {
@@ -27,7 +29,8 @@ const loginReducer = (prevState = initialLoginStateStates, action) => {
                 userToken: null,
                 userId: null,
                 isLoading: false,
-                loginError: null
+                loginError: null,
+                user: null,
             }
         case 'LOGIN_TIMEOUT':
             return {
