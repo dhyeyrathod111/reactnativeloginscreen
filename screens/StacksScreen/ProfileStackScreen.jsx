@@ -1,40 +1,33 @@
 import React from 'react';
-import { StyleSheet, View, TouchableHighlight } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage'
-import { connect } from 'react-redux';
-import { Button } from 'react-native-paper';
+import { StyleSheet, View, TouchableHighlight, Button } from 'react-native';
+
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NavigationContainer } from '@react-navigation/native';
+import DrowerContent from '../../component/DrowerContent';
 
 const ProfileStackScreen = props => {
-    const logoutProcess = async () => {
-        await AsyncStorage.removeItem('logintoken');
-        props.dispatch({ type: 'LOGOUT' })
-    }
+
+    const ProfileDrower = createDrawerNavigator();
+
     return (
-        <View style={styles.container}>
-            <TouchableHighlight>
-                <Button mode="contained" onPress={logoutProcess}>
-                    sign Out
-                </Button>
-            </TouchableHighlight>
-        </View>
+        <NavigationContainer>
+            <ProfileDrower.Navigator drawerContent={props => <DrowerContent {...props} />}>
+                <ProfileDrower.Screen name="Home" component={HomeScreen} />
+            </ProfileDrower.Navigator>
+        </NavigationContainer>
     )
 }
 
-const mapStateToProps = props => {
-    return {
-        loginauth: props.loginReducer,
-    };
+
+
+function HomeScreen({ navigation }) {
+    return (
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Button
+                onPress={() => navigation.navigate('Home')}
+                title="Homepage"
+            />
+        </View>
+    );
 }
-
-
-export default connect(mapStateToProps)(ProfileStackScreen);
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
+export default ProfileStackScreen;
